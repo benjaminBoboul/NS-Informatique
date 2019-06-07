@@ -1,4 +1,5 @@
 build:
+  image: gcc
   script:
     - cd ..
     - make
