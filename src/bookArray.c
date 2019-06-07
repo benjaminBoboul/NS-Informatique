@@ -52,7 +52,7 @@ void bookaRemoveAt(IBookArray this, int i) {
 }
 
 void bookaRemoveLast(IBookArray this) {
-    if(bookaSize(this) != -1) this->books[bookaSize(this)] = null;
+    if(bookaSize(this) != -1) this->books[bookaSize(this)] = NULL;
 }
 
 void bookaSet(IBookArray this, int i, IBook book) {
