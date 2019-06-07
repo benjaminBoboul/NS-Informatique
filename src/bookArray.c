@@ -39,34 +39,22 @@ IBook bookaGet(IBookArray this, int i) {
  * bookaIndexOf
  */
 int bookaIndexOf(IBookArray this, IBook book) {
-    int i = 0;
-    while (this->books[i] != book) { i++; }
-    return i;
 }
 
 void bookaInsertAt(IBookArray this, int i, IBook book) {
-    this->books[i] = book;
 }
 
 void bookaRemoveAt(IBookArray this, int i) {
-    // [book1, book2, book3]
-    this->books[i] = NULL;
 }
 
 void bookaRemoveLast(IBookArray this) {
-    if (bookaSize(this) != -1) this->books[bookaSize(this)] = NULL;
 }
 
 void bookaSet(IBookArray this, int i, IBook book) {
-    this->books[i] = book;
 }
 
 int bookaSize(IBookArray this) {
-    int i = 0;
-    while (this->books[i] != NULL) { i++; }
-    return i;
 }
 
 void grow(IBookArray this) {
-    *this->next = bookaNew();
 }
