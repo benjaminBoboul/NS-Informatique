@@ -1,5 +1,8 @@
+CC=gcc
+ARGS=-Wall -Wextra
+
 Library: book.o bookArray.o CuTest.o bookArrayTest.o
-	gcc -Wall -Wextra -o $@ $^
+	$(CC) ${ARGS} -o $@ $^
 
 %.o:
-	gcc -c $*.c
+	$(CC) ${ARGS} -c $*.c

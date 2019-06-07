@@ -2,6 +2,7 @@
 #include "bookArray.h"
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 
 struct BookArray {
     IBook books[10];
@@ -31,15 +32,16 @@ void bookaAppend(IBookArray this, IBook book) {
  * bookaGet
  */
 IBook bookaGet(IBookArray this, int i) {
-	return this->books[i];
+    return this->books[i];
 }
+
 /*
  * bookaIndexOf
  */
 int bookaIndexOf(IBookArray this, IBook book) {
     int i = 0;
-    while (this->books[i] != book) {i++;}
-	return i;
+    while (this->books[i] != book) { i++; }
+    return i;
 }
 
 void bookaInsertAt(IBookArray this, int i, IBook book) {
@@ -52,7 +54,7 @@ void bookaRemoveAt(IBookArray this, int i) {
 }
 
 void bookaRemoveLast(IBookArray this) {
-    if(bookaSize(this) != -1) this->books[bookaSize(this)] = NULL;
+    if (bookaSize(this) != -1) this->books[bookaSize(this)] = NULL;
 }
 
 void bookaSet(IBookArray this, int i, IBook book) {
@@ -61,10 +63,10 @@ void bookaSet(IBookArray this, int i, IBook book) {
 
 int bookaSize(IBookArray this) {
     int i = 0;
-    while(this->books[i] != '\0') {i++;}
-	return i;
+    while (this->books[i] != NULL) { i++; }
+    return i;
 }
 
 void grow(IBookArray this) {
-    this->next = bookaNew();
+    *this->next = bookaNew();
 }
