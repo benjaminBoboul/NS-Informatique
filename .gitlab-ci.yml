@@ -1,0 +1,5 @@
+build:
+  image: gcc
+  script:
+    - cd src
+    - make Library

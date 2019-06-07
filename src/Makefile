@@ -1,7 +1,5 @@
-all: Library
+Library: book.o bookArray.o CuTest.o bookArrayTest.o
+	gcc -o $@ $^
 
 %.o:
-    gcc -c $@
-
-Library: book.o bookArray.o CuTest.o bookArrayTest.o
-    gcc -o $@ $^
+	gcc -c $*.c
