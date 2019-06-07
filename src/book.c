@@ -9,7 +9,6 @@ struct Book {
 IBook bookNew(const char *title) {
 	IBook this = calloc(1, sizeof(struct Book));
 	this->title = strdup(title);
-    // (*this).title eqv
 	return this;
 }
 

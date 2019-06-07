@@ -48,7 +48,7 @@ void bookaInsertAt(IBookArray this, int i, IBook book) {
 
 void bookaRemoveAt(IBookArray this, int i) {
     // [book1, book2, book3]
-    this->books[i] = null;
+    this->books[i] = NULL;
 }
 
 void bookaRemoveLast(IBookArray this) {
