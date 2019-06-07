@@ -3,3 +3,7 @@ build:
   script:
     - cd src
     - make Library
+    - ./Library
+  artifacts:
+    paths:
+      - ./src/Library
