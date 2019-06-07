@@ -10,8 +10,6 @@ struct BookArray {
 
 IBookArray bookaNew() {
     IBookArray this = calloc(1, sizeof(struct BookArray));
-    this->books = null;
-    this->next = null;
     return this;
 }
 
