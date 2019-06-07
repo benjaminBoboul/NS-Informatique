@@ -61,10 +61,10 @@ void bookaSet(IBookArray this, int i, IBook book) {
 
 int bookaSize(IBookArray this) {
     int i = 0;
-    while(this[i] != '\0') {i++;}
+    while(this->books[i] != '\0') {i++;}
 	return i;
 }
 
 void grow(IBookArray this) {
-    this->next = bookaNew()
+    this->next = bookaNew();
 }
