@@ -14,6 +14,7 @@ void bookaInsertAt(IBookArray this, int i, IBook book);
 void bookaRemoveAt(IBookArray this, int i);
 void bookaRemoveLast(IBookArray this);
 void bookaSet(IBookArray this, int i, IBook book);
+void grow(IBookArray this);
 int bookaSize(IBookArray this);
 
 #endif /* BOOKARRAY_H_ */

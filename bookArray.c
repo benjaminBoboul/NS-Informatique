@@ -5,12 +5,13 @@
 #include <stdio.h>
 
 struct BookArray {
-    IBook books[10];
+    IBook *books;
     IBookArray *next;
 };
 
 IBookArray bookaNew() {
     IBookArray this = calloc(1, sizeof(struct BookArray));
+    this->books = calloc(1, sizeof(IBook)*10);
     return this;
 }
 
@@ -26,10 +27,8 @@ void bookaDelete(IBookArray this) {
  */
 void bookaAppend(IBookArray this, IBook book) {
     int i = 0;
-    while (this->books[i]) {
-        i++;
-        if
-    }
+    while (this->books[i]) i++;
+    if (i > 10) grow(this);
     this->books[i] = book;
 }
 
@@ -44,7 +43,9 @@ IBook bookaGet(IBookArray this, int i) {
  * bookaIndexOf
  */
 int bookaIndexOf(IBookArray this, IBook book) {
-    return -1;
+    int i = -1;
+    for(int j = 0; j != bookaSize(this) ; j++) {if (this->books[i] == book) i = j;}
+    return i;
 }
 
 void bookaInsertAt(IBookArray this, int i, IBook book) {
@@ -66,4 +67,6 @@ int bookaSize(IBookArray this) {
 }
 
 void grow(IBookArray this) {
+    IBook *new_books = realloc(this->books, sizeof(IBook)*10 + sizeof(*this->books));
+    if (new_books) this->books = new_books;
 }
