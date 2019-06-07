@@ -4,29 +4,40 @@
 #include <string.h>
 
 struct BookArray {
-    IBook[10] *books;
+    IBook books[10];
     IBookArray *next;
 };
 
 IBookArray bookaNew() {
-    IBookArray this = calloc(1, sizeof(struct BookArray)); // TODO: rajouter un espace pour un pointeur
+    IBookArray this = calloc(1, sizeof(struct BookArray));
     this->books = null;
     this->next = null;
     return this;
 }
 
+/*
+ * bookaDelete
+ */
 void bookaDelete(IBookArray this) {
     free(this);
 }
 
+/*
+ * bookaAppend
+ */
 void bookaAppend(IBookArray this, IBook book) {
     this->books[0] = book;
 }
 
+/*
+ * bookaGet
+ */
 IBook bookaGet(IBookArray this, int i) {
 	return this->books[i];
 }
-
+/*
+ * bookaIndexOf
+ */
 int bookaIndexOf(IBookArray this, IBook book) {
     int i = 0;
     while (this->books[i] != book) {i++;}
