@@ -13,7 +13,7 @@ struct BookArray {
 
 IBookArray bookaNew() {
     IBookArray this = calloc(1, sizeof(struct BookArray));
-    this->allocatedMemorySize = BOOK_ARRAY_DEFAULT_SIZE * sizeof(IBook);
+    this->allocatedMemorySize = BOOK_ARRAY_DEFAULT_SIZE * sizeof(IBook) + sizeof(char);
     this->books = calloc(1, this->allocatedMemorySize);
     return this;
 }
@@ -32,8 +32,9 @@ void bookaAppend(IBookArray this, IBook book) {
     int i = 0;
     while(this->books[i] != NULL) {
         i++;
-        if (i > this->allocatedMemorySize)
-            grow(this);
+        if (i*sizeof(IBook) >= this->allocatedMemorySize) {
+            grow(this) ;
+        }
     }
     printf("Inserting book at index %d.\n", i);
     this->books[i] = book;
@@ -74,10 +75,15 @@ int bookaSize(IBookArray this) {
 }
 
 void grow(IBookArray this) {
-    void *new_books;
-    printf("<#%p> size : %d\n", &this->books, this->allocatedMemorySize);
+    void *pointerToExtendedAllocatedMemory;
+    size_t oldAllocatedMemorySize = this->allocatedMemorySize;
     this->allocatedMemorySize += BOOK_ARRAY_DEFAULT_SIZE * sizeof(IBook);
-    new_books = realloc(this->books, this->allocatedMemorySize);
-    if (new_books != NULL) this->books = new_books;
-    printf("<#%p> new size : %d\n", &this->books, this->allocatedMemorySize);
+    pointerToExtendedAllocatedMemory = realloc(this->books, this->allocatedMemorySize);
+    if (pointerToExtendedAllocatedMemory != NULL) {
+        size_t diffBetween = this->allocatedMemorySize - oldAllocatedMemorySize;
+        void* pointerToTheBeginningOfAllocatedMemory =
+                ((char*)pointerToExtendedAllocatedMemory) + oldAllocatedMemorySize;
+        memset(pointerToTheBeginningOfAllocatedMemory, 0, diffBetween);
+        this->books = pointerToExtendedAllocatedMemory;
+    }
 }
