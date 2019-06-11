@@ -32,9 +32,7 @@ void bookaAppend(IBookArray this, IBook book) {
     int i = 0;
     while(this->books[i] != NULL) {
         i++;
-        if (i*sizeof(IBook) >= this->allocatedMemorySize) {
-            grow(this) ;
-        }
+        if (i*sizeof(IBook) >= this->allocatedMemorySize) grow(this);
     }
     printf("Inserting book at index %d.\n", i);
     this->books[i] = book;
