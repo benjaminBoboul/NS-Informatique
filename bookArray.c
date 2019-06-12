@@ -7,14 +7,13 @@
 #define BOOK_ARRAY_DEFAULT_SIZE 10
 
 struct BookArray {
-    size_t allocatedMemorySize;
-    IBook *books;
+    IBook books[BOOK_ARRAY_DEFAULT_SIZE];
+    struct BookArray *next;
 };
 
 IBookArray bookaNew() {
     IBookArray this = calloc(1, sizeof(struct BookArray));
-    this->allocatedMemorySize = BOOK_ARRAY_DEFAULT_SIZE * sizeof(IBook) + sizeof(char);
-    this->books = calloc(1, this->allocatedMemorySize);
+    this->next = NULL;
     return this;
 }
 
@@ -29,32 +28,41 @@ void bookaDelete(IBookArray this) {
  * bookaAppend
  */
 void bookaAppend(IBookArray this, IBook book) {
-    int i = 0;
-    while(this->books[i] != NULL) {
-        i++;
-        if (i*sizeof(IBook) >= this->allocatedMemorySize) grow(this);
+    unsigned int indexOfInsertedBook = 0;
+    for (int i = 0; i < BOOK_ARRAY_DEFAULT_SIZE; ++i) {
+        if (this->books[i] == NULL) this->books[i] = book; break;
     }
-    printf("Inserting book at index %d.\n", i);
-    this->books[i] = book;
 }
 
 /*
  * bookaGet
  */
 IBook bookaGet(IBookArray this, int i) {
-    return this->books[i];
+    if (i >= BOOK_ARRAY_DEFAULT_SIZE && this->next != NULL)
+        return bookaGet(this->next, i-BOOK_ARRAY_DEFAULT_SIZE);
+    else return this->books[i];
 }
 
 /*
  * bookaIndexOf
  */
 int bookaIndexOf(IBookArray this, IBook book) {
-    int i = -1;
-    for(int j = 0; j != bookaSize(this) ; j++) {if (this->books[i] == book) i = j;}
-    return i;
+    signed int indexOfBook = -1;
+    return indexOfBook;
 }
 
 void bookaInsertAt(IBookArray this, int i, IBook book) {
+    IBook old_book;
+    if (i >= BOOK_ARRAY_DEFAULT_SIZE) {
+        if (this->next == NULL) grow(this);
+        bookaInsertAt(this->next, i - BOOK_ARRAY_DEFAULT_SIZE, book);
+    } else if (this->books[i] != NULL) {
+        old_book = this->books[i];
+        this->books[i] = book;
+        bookaInsertAt(this, i + 1, old_book);
+    } else {
+        this->books[i] = book;
+    }
 }
 
 void bookaRemoveAt(IBookArray this, int i) {
@@ -67,21 +75,12 @@ void bookaSet(IBookArray this, int i, IBook book) {
 }
 
 int bookaSize(IBookArray this) {
-    int i = 0;
-    while (this->books[i] != NULL) {i++;}
-    return i;
+    unsigned int sizeOfTotalBookArray = 0;
+    if (this->next != NULL) return BOOK_ARRAY_DEFAULT_SIZE + bookaSize(this->next);
+    else while(this->books[sizeOfTotalBookArray] != NULL) sizeOfTotalBookArray++;
+    return sizeOfTotalBookArray;
 }
 
 void grow(IBookArray this) {
-    void *pointerToExtendedAllocatedMemory;
-    size_t oldAllocatedMemorySize = this->allocatedMemorySize;
-    this->allocatedMemorySize += BOOK_ARRAY_DEFAULT_SIZE * sizeof(IBook);
-    pointerToExtendedAllocatedMemory = realloc(this->books, this->allocatedMemorySize);
-    if (pointerToExtendedAllocatedMemory != NULL) {
-        size_t diffBetween = this->allocatedMemorySize - oldAllocatedMemorySize;
-        void* pointerToTheBeginningOfAllocatedMemory =
-                ((char*)pointerToExtendedAllocatedMemory) + oldAllocatedMemorySize;
-        memset(pointerToTheBeginningOfAllocatedMemory, 0, diffBetween);
-        this->books = pointerToExtendedAllocatedMemory;
-    }
+    this->next = bookaNew();
 }
