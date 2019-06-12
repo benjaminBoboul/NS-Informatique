@@ -11,6 +11,10 @@ struct BookArray {
     struct BookArray *next;
 };
 
+/*
+ * bookaNew
+ * @return IBookArray
+ */
 IBookArray bookaNew() {
     IBookArray this = calloc(1, sizeof(struct BookArray));
     this->next = NULL;
@@ -21,6 +25,7 @@ IBookArray bookaNew() {
  * bookaDelete
  */
 void bookaDelete(IBookArray this) {
+    if (this->next != NULL) bookaDelete(this->next);
     free(this);
 }
 
@@ -64,6 +69,9 @@ int bookaIndexOf(IBookArray this, IBook book) {
     return indexOfBook;
 }
 
+/*
+ * bookaInsertAt
+ */
 void bookaInsertAt(IBookArray this, int i, IBook book) {
     IBook old_book;
     if (i >= BOOK_ARRAY_DEFAULT_SIZE) {
@@ -78,8 +86,13 @@ void bookaInsertAt(IBookArray this, int i, IBook book) {
     }
 }
 
+/*
+ * bookaRemoveAt
+ */
 void bookaRemoveAt(IBookArray this, int i) {
-    if (i < BOOK_ARRAY_DEFAULT_SIZE) {
+    if(i>=BOOK_ARRAY_DEFAULT_SIZE && this->next != NULL) {
+        bookaRemoveAt(this, BOOK_ARRAY_DEFAULT_SIZE - i);
+    } else if (i < BOOK_ARRAY_DEFAULT_SIZE) {
         if (this->books[i+1] != NULL) {
             this->books[i] = this->books[i+1];
             bookaRemoveAt(this ,i+1);
@@ -88,9 +101,15 @@ void bookaRemoveAt(IBookArray this, int i) {
 
 }
 
+/*
+ * bookaRemoveLast
+ */
 void bookaRemoveLast(IBookArray this) {
 }
 
+/*
+ * bookaSet
+ */
 void bookaSet(IBookArray this, int i, IBook book) {
     if (i >= BOOK_ARRAY_DEFAULT_SIZE) {
         if (this->next == NULL) grow(this);
