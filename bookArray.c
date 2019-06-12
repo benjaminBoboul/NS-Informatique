@@ -55,6 +55,13 @@ IBook bookaGet(IBookArray this, int i) {
  */
 int bookaIndexOf(IBookArray this, IBook book) {
     signed int indexOfBook = -1;
+    for(int i=0;i<bookaSize(this);i++){
+        if(this->books[i]==book){
+            indexOfBook = i;
+            break;
+        }
+    }
+    printf("\n%d",indexOfBook);
     return indexOfBook;
 }
 
