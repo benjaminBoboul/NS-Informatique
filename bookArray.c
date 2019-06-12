@@ -6,6 +6,9 @@
 
 #define BOOK_ARRAY_DEFAULT_SIZE 10
 
+/*
+ * BookArray
+ */
 struct BookArray {
     IBook books[BOOK_ARRAY_DEFAULT_SIZE];
     struct BookArray *next;
@@ -66,7 +69,11 @@ int bookaIndexOf(IBookArray this, IBook book) {
             break;
         }
     }
-    return indexOfBook;
+    signed int tempIndex = -1;
+    if (indexOfBook == -1 && this->next != NULL) {
+        tempIndex = bookaIndexOf(this->next, book);
+    }
+    return tempIndex != -1 ? 10+tempIndex : indexOfBook;
 }
 
 /*
@@ -98,7 +105,6 @@ void bookaRemoveAt(IBookArray this, int i) {
             bookaRemoveAt(this ,i+1);
         } else {this->books[i] = NULL;}
     }
-
 }
 
 /*
