@@ -73,6 +73,13 @@ void bookaInsertAt(IBookArray this, int i, IBook book) {
 }
 
 void bookaRemoveAt(IBookArray this, int i) {
+    if (i < BOOK_ARRAY_DEFAULT_SIZE) {
+        if (this->books[i+1] != NULL) {
+
+            this->books[i] = this->books[i+1];
+        } else {this->books[i] = NULL;}
+    }
+
 }
 
 void bookaRemoveLast(IBookArray this) {
