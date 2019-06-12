@@ -61,7 +61,6 @@ int bookaIndexOf(IBookArray this, IBook book) {
             break;
         }
     }
-    printf("\n%d",indexOfBook);
     return indexOfBook;
 }
 
@@ -82,8 +81,8 @@ void bookaInsertAt(IBookArray this, int i, IBook book) {
 void bookaRemoveAt(IBookArray this, int i) {
     if (i < BOOK_ARRAY_DEFAULT_SIZE) {
         if (this->books[i+1] != NULL) {
-
             this->books[i] = this->books[i+1];
+            bookaRemoveAt(this ,i+1);
         } else {this->books[i] = NULL;}
     }
 
