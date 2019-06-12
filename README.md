@@ -17,7 +17,8 @@ struct Book {
 };
 ```
 
-Pour utiliser le module `book`, un programme library par exemple, inclut le fichier d'en-tête `book.h`, le mode d'emploi du module qui contient les signatures des fonctions. Il sait qu'`IBook` est un type pointeur de `struct Book` mais ne sait pas de quels champs `struct Book` est composé. Il lui est donc interdit d'accéder à ces champs.... 
+Pour utiliser le module `book`, un programme library par exemple, inclut le fichier d'en-tête `book.h`, le mode d'emploi du module qui contient les signatures des fonctions.
+Il sait qu'`IBook` est un type pointeur de `struct Book` mais ne sait pas de quels champs `struct Book` est composé. Il lui est donc interdit d'accéder à ces champs....
 
 ```
 Dereferencing pointer to incomplete type
