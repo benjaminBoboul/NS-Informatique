@@ -61,8 +61,8 @@ static void testGrow(CuTest *tc) {
 	before();
 	books = bookaNew();
 	for (i=0; i<30; i++)
-		bookaAppend(books, book1);
-	int res = bookaSize(books);
+        bookaAppend(books, book1);
+    int res = bookaSize(books);
 	CuAssertIntEquals(tc, 30, res);
 	for (i=0; i<30; i++) {
 		book = bookaGet(books, i);

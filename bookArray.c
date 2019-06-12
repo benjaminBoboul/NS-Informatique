@@ -28,9 +28,16 @@ void bookaDelete(IBookArray this) {
  * bookaAppend
  */
 void bookaAppend(IBookArray this, IBook book) {
-    unsigned int indexOfInsertedBook = 0;
-    for (int i = 0; i < BOOK_ARRAY_DEFAULT_SIZE; ++i) {
-        if (this->books[i] == NULL) this->books[i] = book; break;
+    if (this->books[BOOK_ARRAY_DEFAULT_SIZE-1 ]!=NULL) {
+        if (this->next==NULL) grow(this);
+        bookaAppend(this->next, book);
+    } else {
+        for (int i = 0; i < BOOK_ARRAY_DEFAULT_SIZE; ++i) {
+            if (this->books[i] == NULL) {
+                this->books[i] = book;
+                break;
+            }
+        }
     }
 }
 
@@ -72,6 +79,10 @@ void bookaRemoveLast(IBookArray this) {
 }
 
 void bookaSet(IBookArray this, int i, IBook book) {
+    if (i >= BOOK_ARRAY_DEFAULT_SIZE) {
+        if (this->next == NULL) grow(this);
+        bookaSet(this->next, i - BOOK_ARRAY_DEFAULT_SIZE, book);
+    } else { this->books[i] = book; }
 }
 
 int bookaSize(IBookArray this) {
