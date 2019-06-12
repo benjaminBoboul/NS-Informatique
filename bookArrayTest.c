@@ -166,11 +166,11 @@ int main() {
 	CuString *output = CuStringNew();
 	SUITE_ADD_TEST(suite, testNew);
 	SUITE_ADD_TEST(suite, testAppend);
-	SUITE_ADD_TEST(suite, testGrow);
+	/*SUITE_ADD_TEST(suite, testGrow);
 	SUITE_ADD_TEST(suite, testInsert);
 	SUITE_ADD_TEST(suite, testRemove);
 	SUITE_ADD_TEST(suite, testRemoveLast);
-	SUITE_ADD_TEST(suite, testSet);
+	SUITE_ADD_TEST(suite, testSet);*/
 	CuSuiteRun(suite);
 	CuSuiteSummary(suite, output);
 	CuSuiteDetails(suite, output);

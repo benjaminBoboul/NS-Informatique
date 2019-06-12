@@ -28,9 +28,23 @@ void bookaDelete(IBookArray this) {
  * bookaAppend
  */
 void bookaAppend(IBookArray this, IBook book) {
-    unsigned int indexOfInsertedBook = 0;
+    /*unsigned int indexOfInsertedBook = 0;
     for (int i = 0; i < BOOK_ARRAY_DEFAULT_SIZE; ++i) {
         if (this->books[i] == NULL) this->books[i] = book; break;
+    }*/
+    for(int i = 0; i < BOOK_ARRAY_DEFAULT_SIZE;i++){
+        if(this->books[i] == NULL && i<=9){
+            this->books[i] = book;
+            break;
+        }else{
+            grow(this);
+            for (int j=bookaSize(this) - 10;j < bookaSize(this);j++){
+                if(this->books[j] != NULL){
+                    this->books[j] = book;
+                    break;
+                }
+            }
+        }*/
     }
 }
 
