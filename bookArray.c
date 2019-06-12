@@ -105,6 +105,8 @@ void bookaRemoveAt(IBookArray this, int i) {
  * bookaRemoveLast
  */
 void bookaRemoveLast(IBookArray this) {
+    int quantityOfBooks = bookaSize(this);
+    bookaRemoveAt(this, quantityOfBooks-1);
 }
 
 /*
