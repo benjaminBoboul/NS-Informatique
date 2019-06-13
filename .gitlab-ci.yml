@@ -1,4 +1,9 @@
+stages:
+  - build
+  - package
+
 build:
+  stage: build
   image: gcc
   script:
     - make Library
@@ -6,3 +11,13 @@ build:
   artifacts:
     paths:
       - ./Library
+
+packaging:
+  stage: package
+  image: alpine
+  script:
+    - zip -r NS-Informatique.zip ./bookArray.c ./bookArray.h
+  artifacts:
+    paths:
+      - ./NS-Informatique.zip
+    expire_in: 2 days
