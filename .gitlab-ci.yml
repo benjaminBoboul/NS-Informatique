@@ -18,7 +18,7 @@ packaging:
   before_script:
     - apk add zip
   script:
-    - zip -r NS-Informatique.zip ./bookArray.c ./bookArray.h
+    - zip -r NS-Informatique.zip ./bookArray.c
   artifacts:
     paths:
       - ./NS-Informatique.zip
