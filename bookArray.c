@@ -35,7 +35,8 @@ void bookaDelete(IBookArray this) {
  * bookaAppend
  */
 void bookaAppend(IBookArray this, IBook book) {
-    if (this->books[BOOK_ARRAY_SIZE - 1] IS_EMPTY) {
+    int lastItemInCurrentArray = BOOK_ARRAY_SIZE - 1;
+    if (this->books[lastItemInCurrentArray] IS_EMPTY) {
         for (int i = 0; i < BOOK_ARRAY_SIZE; ++i) {
             if (this->books[i] IS_EMPTY) {
                 this->books[i] = book;
@@ -77,7 +78,9 @@ int bookaIndexOf(IBookArray this, IBook book) {
     if (indexOfBook == -1 && this->next != NULL)
         temporaryIndexOfBookInNextArray = bookaIndexOf(this->next, book);
     // if the next structure found the book, else
-    return temporaryIndexOfBookInNextArray != -1 ? BOOK_ARRAY_SIZE + temporaryIndexOfBookInNextArray : indexOfBook;
+    return temporaryIndexOfBookInNextArray != -1 ?
+        BOOK_ARRAY_SIZE + temporaryIndexOfBookInNextArray :
+        indexOfBook;
 }
 
 /*
@@ -128,6 +131,9 @@ void bookaSet(IBookArray this, int i, IBook book) {
     } else { this->books[i] = book; }
 }
 
+/*
+ * bookaSize
+ */
 int bookaSize(IBookArray this) {
     unsigned int sizeOfTotalBookArray = 0;
     if (this->next IS_EMPTY) while (this->books[sizeOfTotalBookArray] != NULL) sizeOfTotalBookArray++;
@@ -135,6 +141,9 @@ int bookaSize(IBookArray this) {
     return sizeOfTotalBookArray;
 }
 
+/*
+ * grow
+ */
 void grow(IBookArray this) {
     this->next = bookaNew();
 }
