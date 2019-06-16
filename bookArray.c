@@ -1,3 +1,5 @@
+//Benjamin Boboul - Corentin Le Berre - FA21
+
 #include <assert.h>
 #include "bookArray.h"
 #include <stdlib.h>
