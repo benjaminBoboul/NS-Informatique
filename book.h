@@ -4,7 +4,6 @@
 #include <stdbool.h>
 
 typedef struct Book *IBook;
-
 IBook bookNew(const char *title);
 void bookDelete(IBook this);
 const char *bookTitle(IBook this);
